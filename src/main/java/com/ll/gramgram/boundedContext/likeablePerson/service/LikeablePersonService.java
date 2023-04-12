@@ -34,6 +34,13 @@ public class LikeablePersonService {
             return RsData.of("F-3", "호감 상대는 10명이상 등록할 수 없습니다.");
         }
 
+        Optional<LikeablePerson> samelikeablePerson = likeablePersonRepository.findByToInstaMemberUsername(username);
+
+        if (samelikeablePerson.isPresent()) {
+            return RsData.of("F-4", "이미 등록된 대상입니다.");
+        }
+
+
         InstaMember fromInstaMember = member.getInstaMember();
         InstaMember toInstaMember = instaMemberService.findByUsernameOrCreate(username).getData();
 

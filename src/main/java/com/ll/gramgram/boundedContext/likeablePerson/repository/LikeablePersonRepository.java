@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface LikeablePersonRepository extends JpaRepository<LikeablePerson, Long> {
+public interface LikeablePersonRepository extends JpaRepository<LikeablePerson, Long>, LikeablePersonRepositoryCustom {
     List<LikeablePerson> findByFromInstaMemberId(Long fromInstaMemberId);
 
     List<LikeablePerson> findByToInstaMember_username(String username);
@@ -15,4 +15,3 @@ public interface LikeablePersonRepository extends JpaRepository<LikeablePerson, 
 
     Optional<LikeablePerson> findByFromInstaMember_usernameAndToInstaMember_username(String fromInstaMemberUsername, String toInstaMemberUsername);
 }
-

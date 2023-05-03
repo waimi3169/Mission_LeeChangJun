@@ -15,3 +15,4 @@ public class EventAfterModifyAttractiveType extends ApplicationEvent {
         this.oldAttractiveTypeCode = oldAttractiveTypeCode;
     }
 }
+

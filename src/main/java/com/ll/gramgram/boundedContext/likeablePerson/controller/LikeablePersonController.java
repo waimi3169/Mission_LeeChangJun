@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/usr/likeablePerson")
@@ -126,43 +125,27 @@ public class LikeablePersonController {
     @GetMapping("/toList")
     public String showToList(Model model, String gender, @RequestParam(defaultValue = "0") int attractiveTypeCode, @RequestParam(defaultValue = "1") int sortCode) {
         InstaMember instaMember = rq.getMember().getInstaMember();
-
+        List<LikeablePerson> likeablePeople = instaMember.getToLikeablePeople();
         // 인스타인증을 했는지 체크
         if (instaMember != null) {
             // 해당 인스타회원이 좋아하는 사람들 목록
-            Stream<LikeablePerson> likeablePeopleStream = instaMember.getToLikeablePeople().stream();
 
             if (gender != null) {
-                // likeablePeopleStream = likeablePeopleStream.filter();
-            }
 
-            if (attractiveTypeCode != 0) {
-                // likeablePeopleStream = likeablePeopleStream.filter();
-            }
 
-            switch (sortCode) {
-                case 1:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
-                case 2:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
-                case 3:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
-                case 4:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
-                case 5:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
-                case 6:
-                    // likeablePeopleStream = likeablePeopleStream.sorted(??);
-                    break;
+                if (gender.equals("W")) {
+                    likeablePeople = likeablePeople
+                            .stream()
+                            .filter(likeablePerson -> likeablePerson.getFromInstaMember().getGender().equals("남성"))
+                            .collect(Collectors.toList());
+                } else if (gender.equals("M")) {
+                    likeablePeople = likeablePeople
+                            .stream()
+                            .filter(likeablePerson -> likeablePerson.getFromInstaMember().getGender().equals("여성"))
+                            .collect(Collectors.toList());
+                }
 
             }
-
-            List<LikeablePerson> likeablePeople = likeablePeopleStream.collect(Collectors.toList());
 
             model.addAttribute("likeablePeople", likeablePeople);
         }

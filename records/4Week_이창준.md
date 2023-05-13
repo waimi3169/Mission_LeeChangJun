@@ -1,6 +1,6 @@
-# N3Week_이창준.md
+# N4Week_이창준.md
 
-## Title: [3Week] 이창준
+## Title: [4Week] 이창준
 
 ### 미션 요구사항 분석 & 체크리스트
 
